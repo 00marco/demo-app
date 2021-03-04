@@ -12,3 +12,13 @@ app.use(helmet());
 app.use(morgan('combined'));
 app.use(express.json({'limit':'50mb'}));
 app.use(express.urlencoded({'extended':true}));
+
+
+app.use('/users', routes.user);
+app.use((req, res) => {
+    res.status(404).send('404 page not found');
+});
+
+app.listen(process.env.PORT, () => {
+    console.log(`Example app listening on port ${process.env.PORT} ${__dirname}`);
+});
