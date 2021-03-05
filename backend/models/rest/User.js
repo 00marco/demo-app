@@ -18,7 +18,7 @@ const user = (sequelize, DataTypes) => {
         },
         {
             timestamps: true,
-            freezeTablleName: true
+            freezeTableName: true
         }
     );
 
