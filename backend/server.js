@@ -5,27 +5,40 @@ import helmet from 'helmet';
 import fs from 'fs';
 import path from 'path';
 import routes from './routes';
-// import ApolloServer from 'apollo-server-express';
-// import gql from 'apollo-server-express';
+import {ApolloServer} from 'apollo-server-express';
 import typeDefs from './schema';
-import { sequelize } from './models';
+import { sequelize, User, Property } from './models';
 
 const app = express();
 
-app.use(helmet());
+
+
+
+
+app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
 app.use(morgan('combined'));
 app.use(express.json({'limit':'50mb'}));
 app.use(express.urlencoded({'extended':true}));
 
 
-
 app.use('/users', routes.user);
 app.use('/properties', routes.property);
+
+const resolvers = {
+  Query: {
+    search: async () => await User.findAll()
+  },
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+server.applyMiddleware({ app });
+
+
 app.use((req, res) => {
     res.status(404).send('404 page not found');
 });
-// app.use('/search', ApolloServer({ schema: typeDefs }));
 
-app.listen(process.env.PORT, () => {
-    console.log(`Example app listening on port ${process.env.PORT} ${__dirname}`);
-});
+
+app.listen({ port: 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+)
