@@ -1,5 +1,5 @@
-const db = require('../models');
-const User = db.rest.models.user;
+const { User } = require('../models');
+const { sequelize } = require('../models');
 
 exports.getUser = async (req, res) => {
     const { id } = req.params;
@@ -27,7 +27,8 @@ exports.createUser = async (req, res) => {
         firstName,
         lastName,
     });
-    return res.send(newUser);
+    newUser.save();
+    return res.send({newUser});
   } catch (err) {
     return res.status(500).send({
       message: `Error: ${err.message}`,
@@ -48,3 +49,9 @@ exports.createRandomUser = async (req, res) => {
     });
   }
 };
+
+exports.getProperty = async(req, res) => {
+    res.send({
+        message: 'Property is working!',
+    })
+}

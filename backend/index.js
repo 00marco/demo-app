@@ -1,8 +1,5 @@
 require = require('esm')(module);
+const { sequelize } = require('./models');
 module.exports = require('./server.js');
 
-
-// import ApolloServer from 'apollo-server';
-// import typeDefs from './schema';
-
-// const server = new ApolloServer({ typeDefs });
+sequelize.sync();

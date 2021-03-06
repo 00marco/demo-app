@@ -8,6 +8,7 @@ import routes from './routes';
 // import ApolloServer from 'apollo-server-express';
 // import gql from 'apollo-server-express';
 import typeDefs from './schema';
+import { sequelize } from './models';
 
 const app = express();
 
