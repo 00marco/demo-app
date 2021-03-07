@@ -14,9 +14,11 @@ const typeDefs = gql`
       zip: String
       rent: Float
   }
+  
+  union SearchResult = User | Property
 
   type Query {
-    search(search_pattern: String): [User],
+    search(search_pattern: String): [SearchResult],
   }
 `;
 
