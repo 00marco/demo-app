@@ -26,7 +26,12 @@ app.use('/properties', routes.property);
 
 const resolvers = {
   Query: {
-    search: async () => await User.findAll()
+    search: async (parent, args, context, info) => await User.findAll({
+      where : {
+        firstName : args.search_pattern
+      }
+    }),
+
   },
 };
 
