@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -35,4 +24,59 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.mainContainer {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr 1fr;
+  grid-template-areas:
+    ". . ."
+    ". searchContainerArea ."
+    ". results ."
+    ". . .";
+
+  text-align: center;
+}
+
+.searchContainerArea {
+  grid-area: searchContainerArea;
+}
+
+.results {
+  grid-area: results;
+}
+
+.infocard {
+  margin: 10px;
+  padding: 10px;
+  background-color: green;
+  color: black;
+}
+
+.searchContainer {
+  display: grid;
+  grid-template-columns: 4fr auto;
+  grid-template-rows: 2fr 1fr;
+  width: 100%;
+}
+
+.searchButton {
+  margin: 10px;
+  padding: 5px;
+  background-color: green;
+}
+
+.searchBar {
+  margin: 10px;
+  padding: 5px;
+  background-color: green;
+}
+
+.searchMessage {
+  color: gray;
+  text-align: left;
+  margin: 10px;
 }
