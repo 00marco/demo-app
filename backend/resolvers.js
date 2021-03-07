@@ -36,27 +36,51 @@ export default {
           street : args.search_pattern
         }
       });
+      streetMatch.forEach(property => {
+        property.user = User.findOne({ where: { id: property.userId}});
+      });
+
+      
       var cityMatch = await Property.findAll({
         where : {
           city : args.search_pattern
         }
       });
+      cityMatch.forEach(property => {
+        property.user = User.findOne({ where: { id: property.userId}});
+      });
+
+
       var stateMatch = await Property.findAll({
         where : {
           state : args.search_pattern
         }
       });
+      stateMatch.forEach(property => {
+        property.user = User.findOne({ where: { id: property.userId}});
+      });
+
+
       var zipMatch = await Property.findAll({
         where : {
           zip : args.search_pattern
         }
       });
+      zipMatch.forEach(property => {
+        property.user = User.findOne({ where: { id: property.userId}});
+      });
+      
+
       var rentMatch = await Property.findAll({
         where : {
           rent : args.search_pattern
         }
       });
+      rentMatch.forEach(property => {
+        property.user = User.findOne({ where: { id: property.userId}});
+      });
 
+      
       return [...firstNameMatch, ...lastNameMatch, ...streetMatch, ...cityMatch, ...stateMatch, ...zipMatch, ...rentMatch];
     },
 

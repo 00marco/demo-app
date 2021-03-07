@@ -45,6 +45,10 @@ class SearchComponent extends React.Component {
                 state
                 zip
                 rent
+                user {
+                  firstName
+                  lastName
+                }
               }
             }
           }
@@ -61,9 +65,9 @@ class SearchComponent extends React.Component {
   render(){
     return(
       <div className="searchContainer">
-        <input type="text" name="searchBar" className="searchBar" onChange={this.handleSearchChange}/>
-        <button className="searchButton" onClick={this.getSearchString}>Button</button> 
-        <p className="searchMessage">Message</p> 
+        <input type="text" name="searchBar" className="searchBar search-text" onChange={this.handleSearchChange}/>
+        <button className="searchButton" onClick={this.getSearchString}>Search</button> 
+        {/* <p className="searchMessage">Message</p>  */}
       </div>
       )
   }

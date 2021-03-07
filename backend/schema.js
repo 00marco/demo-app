@@ -13,6 +13,7 @@ const typeDefs = gql`
       state: String
       zip: String
       rent: Float
+      user: User
   }
   
   union SearchResult = User | Property
