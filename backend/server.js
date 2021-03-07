@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import fs from 'fs';
 import path from 'path';
 import routes from './routes';
+import cors from 'cors';
 import {ApolloServer} from 'apollo-server-express';
 import typeDefs from './schema';
 import resolvers from './resolvers';
@@ -20,7 +21,7 @@ app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') 
 app.use(morgan('combined'));
 app.use(express.json({'limit':'50mb'}));
 app.use(express.urlencoded({'extended':true}));
-
+app.use(cors());
 
 app.use('/users', routes.user);
 app.use('/properties', routes.property);

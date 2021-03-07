@@ -51,32 +51,33 @@
 
 .infocard {
   margin: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   background-color: green;
   color: black;
+  text-align: left;
 }
 
 .searchContainer {
   display: grid;
   grid-template-columns: 4fr auto;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 1fr auto;
   width: 100%;
 }
 
 .searchButton {
   margin: 10px;
-  padding: 5px;
+  padding: 10px;
   background-color: green;
 }
 
 .searchBar {
   margin: 10px;
-  padding: 5px;
+  padding: 10px;
   background-color: green;
 }
 
 .searchMessage {
   color: gray;
   text-align: left;
-  margin: 10px;
+  margin: 20px;
 }

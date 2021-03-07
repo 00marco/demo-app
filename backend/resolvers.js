@@ -10,12 +10,12 @@ export default {
   Query: {
     search: async (parent, args, context, info) => {
       // TODO lazy loading syntax is unnecessarily long - use eager loading instead
+      // TODO not sure what's the syntax to make an OR condition in sequelize so I made several queries instead for now
       var firstNameMatch = await User.findAll({
         where : {
           firstName : args.search_pattern
         }
       });
-
       firstNameMatch.forEach(user => {
         user.properties = Property.findAll({ where: { userId: user.id}});
       });
@@ -26,13 +26,38 @@ export default {
           lastName : args.search_pattern
         }
       });
-      
       lastNameMatch.forEach(user => {
         user.properties = Property.findAll({ where: { userId: user.id}});
       });
       
-      var properties = await Property.findAll();
-      return [...firstNameMatch, ...lastNameMatch, ...properties];
+
+      var streetMatch = await Property.findAll({
+        where : {
+          street : args.search_pattern
+        }
+      });
+      var cityMatch = await Property.findAll({
+        where : {
+          city : args.search_pattern
+        }
+      });
+      var stateMatch = await Property.findAll({
+        where : {
+          state : args.search_pattern
+        }
+      });
+      var zipMatch = await Property.findAll({
+        where : {
+          zip : args.search_pattern
+        }
+      });
+      var rentMatch = await Property.findAll({
+        where : {
+          rent : args.search_pattern
+        }
+      });
+
+      return [...firstNameMatch, ...lastNameMatch, ...streetMatch, ...cityMatch, ...stateMatch, ...zipMatch, ...rentMatch];
     },
 
   },
