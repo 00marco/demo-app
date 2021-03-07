@@ -12,8 +12,19 @@ exports.createProperty = async(req, res) => {
     
     try {
         const user = await User.findOne( {where: { id: userId }});
-
-        const property = await Property.create({ street, city, state, zip, rent, userId: user.id })
+        const property = await Property.create(
+            {   
+                street,
+                city,
+                state,
+                zip, 
+                rent, 
+                userId: user.id
+            },
+            {
+                include: "user" 
+            }
+        )
         property.save();
         return res.json(property);
     } catch (err) {

@@ -26,11 +26,21 @@ app.use('/properties', routes.property);
 
 const resolvers = {
   Query: {
-    search: async (parent, args, context, info) => await User.findAll({
-      where : {
-        firstName : args.search_pattern
-      }
-    }),
+    search: async (parent, args, context, info) => {
+      var users = await User.findAll({
+        where : {
+          firstName : args.search_pattern
+        }
+      });
+
+      users.forEach(user => {
+        console.log(user.id);
+        user.properties = Property.findAll({ where: { userId: user.id}});
+        console.log(user.properties);
+
+      });
+      return users;
+    },
 
   },
 };
