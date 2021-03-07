@@ -3,48 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux';
+import reducers from './reducers';
+import {Provider} from 'react-redux';
 
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { gql } from '@apollo/client';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql/search',
-  cache: new InMemoryCache()
-});
+const store = createStore(reducers, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 
-client
-  .query({
-    query: gql`
-    {
-      search(search_pattern: "User") {
-        ... on User {
-          firstName
-          lastName
-          properties {
-            street
-            city
-            state
-            zip
-            rent
-          }
-        }
-    
-        ... on Property {
-          street
-          city
-          state
-          zip
-          rent
-        }
-      }
-    }
-    `
-  })
-  .then(result => console.log(result));
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
+  ,
   document.getElementById('root')
 );
 

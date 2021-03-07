@@ -1,20 +1,47 @@
 import './App.css';
-import Search from './components/Search';
-import InfoCard from './components/InfoCard';
+import SearchComponent from './components/SearchComponent';
+import InfoCardComponent from './components/InfoCardComponent';
+import React from 'react';
+import {connect} from 'react-redux';
 
-function App() {
-  return (
-    <div className="mainContainer">
-      <div className="searchContainerArea">
-        <Search/>
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render(){
+    const searchResults = this.props.searchResults;
+    var infoCardComponentList = [];
+    if(searchResults.data){
+      infoCardComponentList = searchResults.data.search.map((searchResult) =>
+        <InfoCardComponent searchResult={searchResult}/>
+      );
+    }
+    
+
+    return (
+      <div className="mainContainer">
+        <div className="searchContainerArea">
+          <SearchComponent/>
+        </div>
+        <div className="results">
+          {infoCardComponentList}
+        </div>
       </div>
-      <div className="results">
-        <InfoCard/>
-        <InfoCard/>
-        <InfoCard/>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { 
+    searchResults: state.searchResults,
+  }
+}
+
+// const mapDispatchToProps = {
+//   setSearchResults,
+//   setSearchInput
+// }
+
+export default connect(mapStateToProps)(App);
