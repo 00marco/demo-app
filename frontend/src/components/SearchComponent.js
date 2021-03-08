@@ -56,9 +56,16 @@ class SearchComponent extends React.Component {
           `
         }).then(results => {
           this.props.setSearchResults(results);
-          this.setState({
-            searchError: ""
-          });
+          if (results.data.search.length == 0){
+            this.setState({
+              searchError: "No results found"
+            });
+          }else{
+            this.setState({
+              searchError: ""
+            });
+          }
+          
         }).
         catch(err => {
           this.props.setSearchResults([]);
