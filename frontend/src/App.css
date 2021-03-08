@@ -95,8 +95,8 @@
   outline: none;
 }
 
-.searchMessage {
-  color: gray;
+.searchErrorMessage {
+  color: #e74c3c;
   text-align: left;
   margin: 5px 20px;
 }

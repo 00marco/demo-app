@@ -17,6 +17,7 @@ class SearchComponent extends React.Component {
 
     this.getSearchString = this.getSearchString.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.state = {searchError: ""};
   }
 
   async getSearchString(){
@@ -55,9 +56,15 @@ class SearchComponent extends React.Component {
           `
         }).then(results => {
           this.props.setSearchResults(results);
+          this.setState({
+            searchError: ""
+          });
         }).
         catch(err => {
-          alert(err);
+          this.setState({
+            searchError: err.toString()
+          });
+          console.log(this.state.searchError);
           return;
         });
   }
@@ -72,7 +79,7 @@ class SearchComponent extends React.Component {
       <div className="searchContainer">
         <input type="text" name="searchBar" className="searchBar search-text" onChange={this.handleSearchChange}/>
         <button className="searchButton" onClick={this.getSearchString}>Search</button> 
-        {/* <p className="searchMessage">Message</p>  */}
+        <p className="searchErrorMessage">{this.state.searchError}</p> 
       </div>
       )
   }
