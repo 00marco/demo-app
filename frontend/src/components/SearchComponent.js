@@ -21,10 +21,13 @@ class SearchComponent extends React.Component {
   }
 
   async getSearchString(){
-    // if (!this.props.searchInput){
-    //   alert("Input field cannot be empty");
-    //   return;
-    // }
+    if (!this.props.searchInput){
+      this.setState({
+        searchError: "Search field cannot be empty"
+      });
+      return;
+    }
+    
     var results = await client.query({query: gql`
           {
             search(search_pattern: "${this.props.searchInput}") {
