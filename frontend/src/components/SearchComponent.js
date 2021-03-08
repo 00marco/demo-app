@@ -20,10 +20,10 @@ class SearchComponent extends React.Component {
   }
 
   async getSearchString(){
-    if (!this.props.searchInput){
-      alert("Input field cannot be empty");
-      return;
-    }
+    // if (!this.props.searchInput){
+    //   alert("Input field cannot be empty");
+    //   return;
+    // }
     var results = await client.query({query: gql`
           {
             search(search_pattern: "${this.props.searchInput}") {
@@ -53,8 +53,13 @@ class SearchComponent extends React.Component {
             }
           }
           `
+        }).then(results => {
+          this.props.setSearchResults(results);
+        }).
+        catch(err => {
+          alert(err);
+          return;
         });
-    this.props.setSearchResults(results);
   }
   
   handleSearchChange(e) {
