@@ -61,6 +61,7 @@ class SearchComponent extends React.Component {
           });
         }).
         catch(err => {
+          this.props.setSearchResults([]);
           this.setState({
             searchError: err.toString()
           });
